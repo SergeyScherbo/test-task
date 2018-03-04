@@ -1,0 +1,43 @@
+.new-message {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  textarea {
+    flex: 1;
+    height: 75px;
+    line-height: 1.5;
+    padding: 15px;
+    resize: none;
+  }
+
+  button {
+    flex-basis: 75px;
+    height: 75px;
+    background-color: #112D4E;
+    color: #fff;
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+      background-color: lighten(#112d4e, 5%);
+    }
+  }
+}
+
+.message-list {
+  display: none;
+}
+
+.message {
+  position: relative;
+  padding: 25px;
+  background-color: #fff;
+  box-shadow: 0 3px 10px 3px fade-out(#000, .9);
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+}

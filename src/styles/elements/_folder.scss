@@ -1,0 +1,39 @@
+.folder {
+  position: relative;
+  padding: 23px 15px;
+  text-transform: uppercase;
+  transition: .3s;
+  overflow: hidden;
+  color: lighten(#3F72AF, 15%);
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-bottom: 1px;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 100%;
+    background-color: #fff;
+    transform: translateX(-100%);
+    transition: .3s;
+  }
+
+  &:hover,
+  &.is-active {
+    color: #fff;
+
+    &:before {
+      transform: translateX(0);
+    }
+  }
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+}

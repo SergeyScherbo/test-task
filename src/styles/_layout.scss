@@ -1,0 +1,40 @@
+.wrp {
+  display: flex;
+  width: 100%;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+}
+
+.sidebar,
+.content {
+  position: relative;
+  height: 100vh;
+  padding: 15px;
+}
+
+.sidebar {
+  flex-basis: 300px;
+  background-color: #3F72AF;
+
+  .new-folder {
+    width: calc(100% - 30px);
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .sidebar__inner {
+    position: relative;
+    z-index: 5;
+  }
+
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
+}
+
+.content {
+  flex: 1;
+  background-color: #DBE2EF;
+}
