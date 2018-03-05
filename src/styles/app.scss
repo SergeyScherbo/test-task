@@ -1,8 +1,10 @@
 @import 'normalize';
+@import 'variables';
 @import 'general';
 
 @import 'layout';
 
 // elements
+@import 'elements/user';
 @import 'elements/folder';
 @import 'elements/message';

@@ -13,6 +13,6 @@ gulp.task('default', function() {
 gulp.task('build', function() {
   runSequence(
     'clean',
-    ['styles', 'javascript', 'img', 'svg-sprite', 'copy']
+    ['styles', 'javascript:main', 'img', 'svg-sprite', 'copy']
   )
 });

@@ -1,8 +1,14 @@
 const folderList = document.querySelector('.folder-list');
+const input = document.querySelector('input');
 let idCounter = 0;
 
 let currentFolder = null;
 let arrayOfFolders = [];
+
+const addFolderBtn = document.querySelector('.addFolder');
+addFolderBtn.addEventListener('click', function() {
+  input.classList.toggle('is-display');
+})
 
 // constructor, that creates new object (each object refer to folder)
 function createNewFolder(name) {
@@ -14,17 +20,13 @@ function createNewFolder(name) {
 
 // append new folder to the sidebar
 function appendFolder(obj) {
-  const li = document.createElement('li');
-  const ul = document.createElement('ul');
 
-  li.classList.add('folder');
-  li.textContent = obj.name;
-  folderList.appendChild(li);
+  const folder = newElement('li', 'folder', obj.name);
+  folderList.appendChild(folder);
 
+  const messageList = newElement('ul', 'message-list', null, obj.id);
   const content = document.querySelector('.content');
-  ul.classList.add('message-list');
-  ul.setAttribute('data-id', currentFolder.id);
-  content.appendChild(ul);
+  content.appendChild(messageList);
 
   /*
   if there are some messages in the array, that means that
@@ -32,18 +34,15 @@ function appendFolder(obj) {
   */
   if (obj.messages.length > 0) {
     obj.messages.map(msg => {
-      const li = document.createElement('li');
-      li.classList.add('message');
-      li.textContent = msg;
-
-      ul.appendChild(li);
+      const storedMessages = newElement('li', 'message', msg);
+      messageList.appendChild(storedMessages);
     })
   }
 
   // assign event handlers to fresh new folders
-  li.addEventListener('click', showActiveFolder);
-  li.addEventListener('click', changeCurrentFolder);
-  li.addEventListener('click', changeMessageList)
+  folder.addEventListener('click', showActiveFolder);
+  folder.addEventListener('click', changeCurrentFolder);
+  folder.addEventListener('click', changeMessageList)
 }
 
 function showActiveFolder() {
@@ -70,7 +69,24 @@ function changeMessageList(e) {
   curList.style.display = 'block';
 }
 
-const input = document.querySelector('input');
+function newElement(elType, className, text, id) {
+  const element = document.createElement(elType);
+  element.classList.add(className);
+  // if new element is folder - append to it icon
+  if (className === 'folder') {
+    element.innerHTML += `<i class="fa fa-hdd"></i>${text}`;
+    return element;
+  }
+  if (text !== null) {
+    element.textContent = text;
+  }
+  if (id > -1) {
+    element.setAttribute('data-id', id);
+  }
+
+  return element;
+}
+
 input.addEventListener('keypress', function(e) {
   if (e.keyCode === 13) {
     if (this.value < 1) {
@@ -84,6 +100,7 @@ input.addEventListener('keypress', function(e) {
 
     appendFolder(currentFolder);
     localStorage.setItem('folders', JSON.stringify(arrayOfFolders));
+    localStorage.setItem('folderID', idCounter);
   }
 });
 
@@ -108,6 +125,12 @@ send.addEventListener('click', function() {
 
 window.addEventListener('load', function() {
   arrayOfFolders = JSON.parse(localStorage.getItem('folders')) || [];
+
+  if (isNaN(parseInt(localStorage.getItem('folderID')))) {
+    idCounter = 0;
+  } else {
+    idCounter = parseInt(localStorage.getItem('folderID'));
+  }
 
   if (arrayOfFolders.length > 0) {
     arrayOfFolders.map(folder => {

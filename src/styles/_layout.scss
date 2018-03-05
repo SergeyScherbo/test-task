@@ -11,12 +11,12 @@
 .content {
   position: relative;
   height: 100vh;
-  padding: 15px;
 }
 
 .sidebar {
   flex-basis: 300px;
-  background-color: #3F72AF;
+  padding: 15px;
+  background-color: $mainSidebar;
 
   .new-folder {
     width: calc(100% - 30px);
@@ -32,9 +32,47 @@
   @media screen and (max-width: 768px) {
     height: auto;
   }
+
+  .sidebar__heading {
+    margin-bottom: 20px;
+    color: #fff;
+
+    h2 {
+      text-transform: uppercase;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    p {
+      color: $fadeWhite;
+    }
+  }
 }
 
 .content {
   flex: 1;
-  background-color: #DBE2EF;
+  padding: 0 25px;
+  background-color: $mainContent;
+
+  &__heading {
+    width: calc(100% + 50px);
+    margin-left: -25px;
+    margin-bottom: 20px;
+    padding: 15px 25px;
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+    box-shadow: 0 3px 5px 1px fade-out(#000, .9);
+
+    h2 {
+      font-size: 1.5rem;
+      color: #666;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    p {
+      color: #bbb;
+    }
+  }
 }

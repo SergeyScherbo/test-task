@@ -16,13 +16,13 @@
   button {
     flex-basis: 75px;
     height: 75px;
-    background-color: #112D4E;
+    background-color: #5bbd72;
     color: #fff;
     cursor: pointer;
     transition: .3s;
 
     &:hover {
-      background-color: lighten(#112d4e, 5%);
+      background-color: darken(#5bbd72, 5%);
     }
   }
 }
@@ -34,8 +34,8 @@
 .message {
   position: relative;
   padding: 25px;
+  border-radius: 5px;
   background-color: #fff;
-  box-shadow: 0 3px 10px 3px fade-out(#000, .9);
 
   &:not(:last-of-type) {
     margin-bottom: 10px;
