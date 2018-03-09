@@ -22,7 +22,7 @@ gulp.task('javascript:main', function() {
       console.log(err.message);
       this.end();
     })
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('dist/js'));
 });
 

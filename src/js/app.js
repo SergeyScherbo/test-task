@@ -1,14 +1,31 @@
 const folderList = document.querySelector('.folder-list');
 const input = document.querySelector('input');
-let idCounter = 0;
 
+let idCounter = 0;
 let currentFolder = null;
-let arrayOfFolders = [];
+let arrayOfFolders = JSON.parse(localStorage.getItem('folders')) || [];
+
+// if folderID exists in the localStorage - change idCounter variable
+if (parseInt(localStorage.getItem('folderID'))) {
+  idCounter = parseInt(localStorage.getItem('folderID'));
+}
+
+if (arrayOfFolders.length > 0) {
+  arrayOfFolders.map(folder => {
+    currentFolder = folder;
+    appendFolder(currentFolder);
+  });
+
+  // make first folder active
+  currentFolder = arrayOfFolders[0];
+  document.querySelector('.folder-list .folder:first-of-type').classList.add('is-active');
+  document.querySelector('.message-list:first-of-type').style.display = 'block';
+}
 
 const addFolderBtn = document.querySelector('.addFolder');
 addFolderBtn.addEventListener('click', function() {
   input.classList.toggle('is-display');
-})
+});
 
 // constructor, that creates new object (each object refer to folder)
 function createNewFolder(name) {
@@ -29,7 +46,7 @@ function appendFolder(obj) {
   content.appendChild(messageList);
 
   /*
-  if there are some messages in the array, that means that
+  if there are some messages in the array, it means that
   they were stored in localStorage
   */
   if (obj.messages.length > 0) {
@@ -111,6 +128,10 @@ send.addEventListener('click', function() {
     alert('You have to write something in your message!');
     return;
   }
+  if (arrayOfFolders.length < 1) {
+    alert('You have to create folder first!');
+    return;
+  }
   const li = document.createElement('li');
   li.classList.add('message');
   li.textContent = textarea.value;
@@ -121,25 +142,4 @@ send.addEventListener('click', function() {
   currentFolder.messages.push(textarea.value);
   textarea.value = '';
   localStorage.setItem('folders', JSON.stringify(arrayOfFolders));
-});
-
-window.addEventListener('load', function() {
-  arrayOfFolders = JSON.parse(localStorage.getItem('folders')) || [];
-
-  if (isNaN(parseInt(localStorage.getItem('folderID')))) {
-    idCounter = 0;
-  } else {
-    idCounter = parseInt(localStorage.getItem('folderID'));
-  }
-
-  if (arrayOfFolders.length > 0) {
-    arrayOfFolders.map(folder => {
-      currentFolder = folder;
-      appendFolder(currentFolder);
-    });
-
-    currentFolder = arrayOfFolders[0];
-    document.querySelector('.folder-list .folder:first-of-type').classList.add('is-active');
-    document.querySelector('.message-list:first-of-type').style.display = 'block';
-  }
 });
